@@ -43,7 +43,6 @@
                 <select id="actividad" required>
                     <option value="">Seleccione...</option>
                         <option value="Ferretería">Ferretería</option>
-                        <option value="Ferretería">Ferretería</option>
                         <option value="Supermercado">Supermercado / Mini Market</option>
                         <option value="Panadería">Panadería</option> 
                         <option value="Venta de repuestos para vehículos">Venta de repuestos para vehículos</option>  
@@ -68,7 +67,13 @@
                     <option value="Otro">Otro</option>
                 </select>
             </div>
-            <div class="form-group"><label>¿Cuántas estaciones utilizarían el sistema? *</label><input type="text" id="estaciones" required></div>
+            <div class="form-group">
+                <label>¿Cuántas estaciones utilizarían el sistema? *</label>
+                <select id="estaciones" required>
+                <option value="1a3">De 1 A 3</option>
+                <option value="4a6">De 4 A 6</option> 
+                <option value="7a10">De 7 A 10</option>  
+                <option value="10">10 o mas estaciones</option>    
             <div class="form-group"><label>¿Cuál es su método de facturación? *</label><input type="text" id="facturacion" required></div>
             <div class="form-group"><label>Si selecciona impresora fiscal, indique marca/modelo</label><input type="text" id="detalles"></div>
             
