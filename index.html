@@ -37,6 +37,8 @@
         <form id="clientForm">
             <div class="form-group"><label>Nombre Persona Contacto Ver 2.0*</label><input type="text" id="contacto" required></div>
             <div class="form-group"><label>Nombre de la Empresa *</label><input type="text" id="empresa" required></div>
+            <div class="form-group"><label>Teléfono *</label><input type="tel" id="telefono" required></div>
+            <div class="form-group"><label>Correo Electrónico *</label><input type="email" id="email" required></div>
             <div class="form-group"><label>Ubicación *</label><input type="text" id="ubicacion" required></div>
             <div class="form-group">
                 <label>Actividad Económica *</label>
@@ -106,6 +108,8 @@
         <div class="preview-list">
             <div class="preview-item">👤 <strong>Contacto:</strong> <span id="lblContacto"></span></div>
             <div class="preview-item">🏢 <strong>Empresa:</strong> <span id="lblEmpresa"></span></div>
+            <div class="preview-item">📞 <strong>Teléfono:</strong> <span id="lblTelefono"></span></div>
+            <div class="preview-item">✉️ <strong>Email:</strong> <span id="lblEmail"></span></div>
             <div class="preview-item">📍 <strong>Ubicación:</strong> <span id="lblUbicacion"></span></div>
             <div class="preview-item">💼 <strong>Actividad:</strong> <span id="lblActividad"></span></div>
             <div class="preview-item">⚖️ <strong>Contribuyente:</strong> <span id="lblContribuyente"></span></div>
@@ -144,8 +148,8 @@
             // 2. Inyectar visualmente los datos recolectados en la lista de resumen
             document.getElementById('lblContacto').innerText = payload.contacto;
             document.getElementById('lblEmpresa').innerText = payload.empresa;
-            document.getElementById('lbltelefono').innerText = payload.telefono;
-            document.getElementById('lblemail').innerText = payload.email;
+            document.getElementById('lblTelefono').innerText = payload.telefono;
+            document.getElementById('lblEmail').innerText = payload.email;
             document.getElementById('lblUbicacion').innerText = payload.ubicacion;
             document.getElementById('lblActividad').innerText = payload.actividad;
             document.getElementById('lblContribuyente').innerText = payload.contribuyente;
@@ -158,8 +162,8 @@
             const emSaludo   = "\u{1F44B}"; // 👋
             const emContacto = "\u{1F464}"; // 👤
             const emEmpresa  = "\u{1F3E2}"; // 🏢
-            const emTelefono  = "\u{1F3E2}"; // 🏢
-            const emEmail  = "\u{1F3E2}"; // 🏢
+            const emTelefono  = "\u{1F4DE}"; // 📞
+            const emEmail = "\u{2709}";    // ✉️
             const emUbi      = "\u{1F4CD}"; // 📍
             const emAct      = "\u{1F4BC}"; // 💼
             const emBal      = "\u{2696}";  // ⚖
