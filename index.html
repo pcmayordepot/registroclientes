@@ -149,16 +149,16 @@
             document.getElementById('lblDetalles').innerText = payload.detalles;
 
             // 3. Construir el texto final formateado para WhatsApp
-            const textoMensaje = "¡Hola! \uD83D\uDC4B Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
-                                 "\uD83D\uDC64 Contacto: " + payload.contacto + "\n" +
-                                 "\uD83C\uDFE2 Empresa: " + payload.empresa + "\n" +
-                                 "\uD83D\uDCCD Ubicación: " + payload.ubicacion + "\n" +
-                                 "\uD83D\uDCBC Actividad: " + payload.actividad + "\n" +
-                                 "\u2696\uFE0F Contribuyente: " + payload.contribuyente + "\n" +
-                                 "\uD83D\uDC65 Estaciones: " + payload.estaciones + "\n" +
-                                 "\uD83E\uDFFE Facturación: " + payload.facturacion + "\n" +
-                                 "\uD83D\uDDA0 Detalles: " + payload.detalles + "\n\n" +
-                                 "Confirmo enviar2 datos.";
+            const textoMensaje = "¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
+                                 "👤 Contacto: " + payload.contacto + "\n" +
+                                 "🏢 Empresa: " + payload.empresa + "\n" +
+                                 "📍 Ubicación: " + payload.ubicacion + "\n" +
+                                 "💼 Actividad: " + payload.actividad + "\n" +
+                                 "⚖️ Contribuyente: " + payload.contribuyente + "\n" +
+                                 "👥 Estaciones: " + payload.estaciones + "\n" +
+                                 "🧾 Facturación: " + payload.facturacion + "\n" +
+                                 "🖨️ Detalles: " + payload.detalles + "\n\n" +
+                                 "Confirmo enviar3 datos.";
 
             // 4. Asignar el enlace estructurado de inmediato al botón verde
             const urlWhatsapp = "https://wa.me/584124450795?text=" + encodeURIComponent(textoMensaje);
