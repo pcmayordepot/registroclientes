@@ -121,6 +121,7 @@
     </div>
 
     <script>
+       
         const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwOYHHZ41luJ3X4tp7aG4m5623eOhu5oEGHoR9DqGFe9i7Q5qQfWbeRNEzex6iQPgnm/exec";
 
         document.getElementById('clientForm').addEventListener('submit', function(e) {
@@ -130,6 +131,8 @@
             const payload = {
                 contacto: document.getElementById('contacto').value,
                 empresa: document.getElementById('empresa').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
                 ubicacion: document.getElementById('ubicacion').value,
                 actividad: document.getElementById('actividad').value,
                 contribuyente: document.getElementById('contribuyente').value,
@@ -141,6 +144,8 @@
             // 2. Inyectar visualmente los datos recolectados en la lista de resumen
             document.getElementById('lblContacto').innerText = payload.contacto;
             document.getElementById('lblEmpresa').innerText = payload.empresa;
+            document.getElementById('lbltelefono').innerText = payload.telefono;
+            document.getElementById('lblemail').innerText = payload.email;
             document.getElementById('lblUbicacion').innerText = payload.ubicacion;
             document.getElementById('lblActividad').innerText = payload.actividad;
             document.getElementById('lblContribuyente').innerText = payload.contribuyente;
@@ -153,6 +158,8 @@
             const emSaludo   = "\u{1F44B}"; // 👋
             const emContacto = "\u{1F464}"; // 👤
             const emEmpresa  = "\u{1F3E2}"; // 🏢
+            const emTelefono  = "\u{1F3E2}"; // 🏢
+            const emEmail  = "\u{1F3E2}"; // 🏢
             const emUbi      = "\u{1F4CD}"; // 📍
             const emAct      = "\u{1F4BC}"; // 💼
             const emBal      = "\u{2696}";  // ⚖
@@ -165,6 +172,8 @@
             const textoMensaje = "¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
                             emContacto + " Contacto: " + payload.contacto + "\n" +
                             emEmpresa + " Empresa: " + payload.empresa + "\n" +
+                            emTelefono + " Telefono: " + payload.telefono + "\n" +
+                            emEmail + " Email: " + payload.email + "\n" +
                             emUbi + " Ubicación: " + payload.ubicacion + "\n" +
                             emAct + " Actividad: " + payload.actividad + "\n" +
                             emBal + " Contribuyente: " + payload.contribuyente + "\n" +
