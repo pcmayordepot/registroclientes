@@ -35,7 +35,7 @@
         </div>
         <h2>Datos del Cliente</h2>
         <form id="clientForm">
-            <div class="form-group"><label>Nombre123Persona Contacto *</label><input type="text" id="contacto" required></div>
+            <div class="form-group"><label>Nombre Persona Contacto *</label><input type="text" id="contacto" required></div>
             <div class="form-group"><label>Nombre de la Empresa *</label><input type="text" id="empresa" required></div>
             <div class="form-group"><label>Ubicación *</label><input type="text" id="ubicacion" required></div>
             <div class="form-group">
@@ -67,35 +67,7 @@
                     <option value="Especial">Contribuyente Especial</option>
                     <option value="Otro">Otro</option>
                 </select>
-            </div>
-              
-               <!-- Contenedor oculto -->
-    <div class="form-group" id="contenedor-otro" style="display: none; margin-top: 10px;">
-        <input type="text" id="otro_contribuyente" name="otro_contribuyente" placeholder="Escriba cuál..." style="width: 100%; border: none; border-bottom: 2px solid red; outline: none;">
-    </div>
-    
-    <button type="submit">Enviar</button>
-</form>
-
-<script>
-    const selectContribuyente = document.getElementById('contribuyente');
-    const contenedorOtro = document.getElementById('contenedor-otro');
-    const inputOtro = document.getElementById('otro_contribuyente');
-
-    selectContribuyente.addEventListener('change', function() {
-        if (this.value === 'Otro') {
-            contenedorOtro.style.display = 'block';
-            inputOtro.required = true;
-        } else {
-            contenedorOtro.style.display = 'none';
-            inputOtro.required = false;
-            inputOtro.value = ''; 
-        }
-    });
-</script>
-      
-
-            
+            </div>   
             <div class="form-group">
                 <label>¿Cuántas estaciones utilizarían el sistema? *</label>
                 <select id="estaciones" required>
