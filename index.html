@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Cliente - PC  DEPOT</title>
+    <title>Datos del Cliente - PC MAYOR DEPOT</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
         .form-container, .success-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border-top: 8px solid #cc0000; box-sizing: border-box; }
@@ -148,17 +148,28 @@
             document.getElementById('lblFacturacion').innerText = payload.facturacion;
             document.getElementById('lblDetalles').innerText = payload.detalles;
 
+            // Definición segura de emojis usando códigos Unicode nativos
+            const emSaludo   = "\u{1F44B}"; // 👋
+            const emContacto = "\u{1F464}"; // 👤
+            const emEmpresa  = "\u{1F3E2}"; // 🏢
+            const emUbi      = "\u{1F4CD}"; // 📍
+            const emAct      = "\u{1F4BC}"; // 💼
+            const emBal      = "\u{2696}";  // ⚖
+            const emEst      = "\u{1F465}"; // 👥
+            const emFact     = "\u{1F9FE}"; // 🧾
+            const emImp      = "\u{1F5A8}"; // 🖨
+            
             // 3. Construir el texto final formateado para WhatsApp
             const textoMensaje = "¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
-                                 "👤 Contacto: " + payload.contacto + "\n" +
-                                 "🏢 Empresa: " + payload.empresa + "\n" +
-                                 "📍 Ubicación: " + payload.ubicacion + "\n" +
-                                 "💼 Actividad: " + payload.actividad + "\n" +
-                                 "⚖️ Contribuyente: " + payload.contribuyente + "\n" +
-                                 "👥 Estaciones: " + payload.estaciones + "\n" +
-                                 "🧾 Facturación: " + payload.facturacion + "\n" +
-                                 "🖨️ Detalles: " + payload.detalles + "\n\n" +
-                                 "Confirmo enviar3 datos.";
+                             emContacto + " Contacto: " + payload.contacto + "\n" +
+                             emEmpresa + " Empresa: " + payload.empresa + "\n" +
+                             emUbi + " Ubicación: " + payload.ubicacion + "\n" +
+                             emAct + " Actividad: " + payload.actividad + "\n" +
+                             emBal + " Contribuyente: " + payload.contribuyente + "\n" +
+                             emEst + " Estaciones: " + payload.estaciones + "\n" +
+                             emFact + " Facturación: " + payload.facturacion + "\n" +
+                             emImp + " Detalles: " + payload.detalles + "\n\n" +
+                             "Confirmo enviar los datos.";
                                  
             // 4. Asignar el enlace estructurado de inmediato al botón verde
             const urlWhatsapp = "https://wa.me/584124450795?text=" + encodeURIComponent(textoMensaje);
