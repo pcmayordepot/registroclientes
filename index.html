@@ -68,29 +68,32 @@
                     <option value="Otro">Otro</option>
                 </select>
             </div>
-                <!-- Este es el nuevo campo que aparecerá oculto por defecto -->
-            <div class="form-group" id="contenedor-otro" style="display: none; margin-top: 10px;">
-                    <input type="text" id="otro_contribuyente" placeholder="Escriba cuál..." style="width: 100%; border: none; border-bottom: 2px solid red; outline: none;">
-            </div>
+              
+               <!-- Contenedor oculto -->
+    <div class="form-group" id="contenedor-otro" style="display: none; margin-top: 10px;">
+        <input type="text" id="otro_contribuyente" name="otro_contribuyente" placeholder="Escriba cuál..." style="width: 100%; border: none; border-bottom: 2px solid red; outline: none;">
+    </div>
+    
+    <button type="submit">Enviar</button>
+</form>
 
-            <script>
-                    const selectContribuyente = document.getElementById('contribuyente');
-                    const contenedorOtro = document.getElementById('contenedor-otro');
-                    const inputOtro = document.getElementById('otro_contribuyente');
+<script>
+    const selectContribuyente = document.getElementById('contribuyente');
+    const contenedorOtro = document.getElementById('contenedor-otro');
+    const inputOtro = document.getElementById('otro_contribuyente');
 
-                    selectContribuyente.addEventListener('change', function() {
-                        if (this.value === 'Otro') {
-                        // Muestra el campo de texto si selecciona "Otro"
-                            contenedorOtro.style.display = 'block';
-                            inputOtro.required = true; // Hace que el campo de texto sea obligatorio
-                        } else {
-                        // Oculta el campo y limpia su valor si elige otra opción
-                            contenedorOtro.style.display = 'none';
-                            inputOtro.required = false;
-                            inputOtro.value = ''; 
-                        }
-                        });
-            </script>
+    selectContribuyente.addEventListener('change', function() {
+        if (this.value === 'Otro') {
+            contenedorOtro.style.display = 'block';
+            inputOtro.required = true;
+        } else {
+            contenedorOtro.style.display = 'none';
+            inputOtro.required = false;
+            inputOtro.value = ''; 
+        }
+    });
+</script>
+      
 
             
             <div class="form-group">
