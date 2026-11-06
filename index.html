@@ -149,16 +149,16 @@
             document.getElementById('lblDetalles').innerText = payload.detalles;
 
             // 3. Construir el texto final formateado para WhatsApp
-            const textoMensaje = "¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
-                                 "👤 Contacto: " + payload.contacto + "\n" +
-                                 "🏢 Empresa: " + payload.empresa + "\n" +
-                                 "📍 Ubicación: " + payload.ubicacion + "\n" +
-                                 "💼 Actividad: " + payload.actividad + "\n" +
-                                 "⚖️ Contribuyente: " + payload.contribuyente + "\n" +
-                                 "👥 Estaciones: " + payload.estaciones + "\n" +
-                                 "🧾 Facturación: " + payload.facturacion + "\n" +
-                                 "🖨️ Detalles: " + payload.detalles + "\n\n" +
-                                 "Confirmo enviar3 datos.";
+            const textoMensaje = `¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:
+                                👤 Contacto: ${payload.contacto}
+                                🏢 Empresa: ${payload.empresa}
+                                📍 Ubicación: ${payload.ubicacion}
+                                💼 Actividad: ${payload.actividad}
+                                ⚖️ Contribuyente: ${payload.contribuyente}
+                                👥 Estaciones: ${payload.estaciones}
+                                🧾 Facturación: ${payload.facturacion}
+                                🖨️ Detalles: ${payload.detalles}
+                                 "Confirmo enviar33 datos.";
 
             // 4. Asignar el enlace estructurado de inmediato al botón verde
             const urlWhatsapp = "https://wa.me/584124450795?text=" + encodeURIComponent(textoMensaje);
