@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label>Actividad Económica *</label>
                 <select id="actividad" required>
-                    <option value="">Seleccione...</option>
+                        <option value="">Seleccione...</option>
                         <option value="Ferretería">Ferretería</option>
                         <option value="Supermercado">Supermercado / Mini Market</option>
                         <option value="Panadería">Panadería</option> 
@@ -70,11 +70,19 @@
             <div class="form-group">
                 <label>¿Cuántas estaciones utilizarían el sistema? *</label>
                 <select id="estaciones" required>
-                <option value="1a3">De 1 A 3</option>
-                <option value="4a6">De 4 A 6</option> 
-                <option value="7a10">De 7 A 10</option>  
-                <option value="10">10 o mas estaciones</option>    
-            <div class="form-group"><label>¿Cuál es su método de facturación? *</label><input type="text" id="facturacion" required></div>
+                <option value="De 1 A 3">De 1 A 3</option>
+                <option value="De 4 A 6">De 4 A 6</option> 
+                <option value="De 7 A 10">De 7 A 10</option>  
+                <option value="10 o mas estaciones">10 o mas estaciones</option> 
+                    
+            <div class="form-group"><label>¿Cuál es su método de facturación? *</label>
+                <select id="facturacion" required>
+                <option value="Manual">Manual</option>    
+                <option value="Impresora Fiscal">Impresora Fiscal</option>
+                <option value="Forma Libre">Forma Libre</option>    
+                <option value="Facturacion Digital">Facturacion Digital</option>    
+                    
+            
             <div class="form-group"><label>Si selecciona impresora fiscal, indique marca/modelo</label><input type="text" id="detalles"></div>
             
             <button type="submit" class="btn-submit" id="btnEnviarTexto">Ver Resumen e Iniciar Chat</button>
