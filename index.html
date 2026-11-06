@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Cliente - PC  DEPOT</title>
+    <title>Datos del Cliente - PC MAYOR DEPOT</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
         .form-container, .success-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border-top: 8px solid #cc0000; box-sizing: border-box; }
@@ -68,6 +68,31 @@
                     <option value="Otro">Otro</option>
                 </select>
             </div>
+                <!-- Este es el nuevo campo que aparecerá oculto por defecto -->
+            <div class="form-group" id="contenedor-otro" style="display: none; margin-top: 10px;">
+                    <input type="text" id="otro_contribuyente" placeholder="Escriba cuál..." style="width: 100%; border: none; border-bottom: 2px solid red; outline: none;">
+            </div>
+
+            <script>
+                    const selectContribuyente = document.getElementById('contribuyente');
+                    const contenedorOtro = document.getElementById('contenedor-otro');
+                    const inputOtro = document.getElementById('otro_contribuyente');
+
+                    selectContribuyente.addEventListener('change', function() {
+                        if (this.value === 'Otro') {
+                        // Muestra el campo de texto si selecciona "Otro"
+                            contenedorOtro.style.display = 'block';
+                            inputOtro.required = true; // Hace que el campo de texto sea obligatorio
+                        } else {
+                        // Oculta el campo y limpia su valor si elige otra opción
+                            contenedorOtro.style.display = 'none';
+                            inputOtro.required = false;
+                            inputOtro.value = ''; 
+                        }
+                        });
+            </script>
+
+            
             <div class="form-group">
                 <label>¿Cuántas estaciones utilizarían el sistema? *</label>
                 <select id="estaciones" required>
@@ -148,51 +173,30 @@
             document.getElementById('lblFacturacion').innerText = payload.facturacion;
             document.getElementById('lblDetalles').innerText = payload.detalles;
 
-            // Declaración matemática ultra-segura de Emojis por códigos Hexadecimales de escape
-            const emSaludo   = String.fromCodePoint(0x1F44B); // 👋
-            const emContacto = String.fromCodePoint(0x1F464); // 👤
-            const emEmpresa  = String.fromCodePoint(0x1F3E2); // 🏢
-            const emUbi      = String.fromCodePoint(0x1F4CD); // 📍
-            const emAct      = String.fromCodePoint(0x1F4BC); // 💼
-            const emBal      = String.fromCodePoint(0x2696);  // ⚖
-            const emEst      = String.fromCodePoint(0x1F465); // 👥
-            const emFact     = String.fromCodePoint(0x1F9FE); // 🧾
-            const emImp      = String.fromCodePoint(0x1F5A8); // 🖨
             
             // Definición segura de emojis usando códigos Unicode nativos
-            //const emSaludo   = "\u{1F44B}"; // 👋
-            //const emContacto = "\u{1F464}"; // 👤
-            //const emEmpresa  = "\u{1F3E2}"; // 🏢
-            //const emUbi      = "\u{1F4CD}"; // 📍
-            //const emAct      = "\u{1F4BC}"; // 💼
-            //const emBal      = "\u{2696}";  // ⚖
-            //const emEst      = "\u{1F465}"; // 👥
-            //const emFact     = "\u{1F9FE}"; // 🧾
-            //const emImp      = "\u{1F5A8}"; // 🖨
+            const emSaludo   = "\u{1F44B}"; // 👋
+            const emContacto = "\u{1F464}"; // 👤
+            const emEmpresa  = "\u{1F3E2}"; // 🏢
+            const emUbi      = "\u{1F4CD}"; // 📍
+            const emAct      = "\u{1F4BC}"; // 💼
+            const emBal      = "\u{2696}";  // ⚖
+            const emEst      = "\u{1F465}"; // 👥
+            const emFact     = "\u{1F9FE}"; // 🧾
+            const emImp      = "\u{1F5A8}"; // 🖨
             
-            // Concatenación clásica compatible con motores de PC antiguos y modernos
-            const textoMensaje = "\u00A1Hola! " + emSaludo + " Acabo de completar el formulario de registro. Aqu\u00ED est\u00E1n los detalles de mi solicitud:\n\n" +
-            emContacto + " Contacto: " + payload.contacto + "\n" +
-            emEmpresa + " Empresa: " + payload.empresa + "\n" +
-            emUbi + " Ubicaci\u00F3n: " + payload.ubicacion + "\n" +
-            emAct + " Actividad: " + payload.actividad + "\n" +
-            emBal + " Contribuyente: " + payload.contribuyente + "\n" +
-            emEst + " Estaciones: " + payload.estaciones + "\n" +
-            emFact + " Facturaci\u00F3n: " + payload.facturacion + "\n" +
-            emImp + " Detalles: " + payload.detalles + "\n\n" +
-            "Confirmo 123 enviar los datos.";
             
             // 3. Construir el texto final formateado para WhatsApp
-            //const textoMensaje = "¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
-            //                 emContacto + " Contacto: " + payload.contacto + "\n" +
-            //                 emEmpresa + " Empresa: " + payload.empresa + "\n" +
-            //                 emUbi + " Ubicación: " + payload.ubicacion + "\n" +
-            //                 emAct + " Actividad: " + payload.actividad + "\n" +
-            //                 emBal + " Contribuyente: " + payload.contribuyente + "\n" +
-            //                 emEst + " Estaciones: " + payload.estaciones + "\n" +
-            //                 emFact + " Facturación: " + payload.facturacion + "\n" +
-            //                 emImp + " Detalles: " + payload.detalles + "\n\n" +
-            //                 "Confirmo enviar los datos.";
+            const textoMensaje = "¡Hola! 👋 Acabo de completar el formulario de registro. Aquí están los detalles de mi solicitud:\n\n" +
+                            emContacto + " Contacto: " + payload.contacto + "\n" +
+                            emEmpresa + " Empresa: " + payload.empresa + "\n" +
+                            emUbi + " Ubicación: " + payload.ubicacion + "\n" +
+                            emAct + " Actividad: " + payload.actividad + "\n" +
+                            emBal + " Contribuyente: " + payload.contribuyente + "\n" +
+                            emEst + " Estaciones: " + payload.estaciones + "\n" +
+                            emFact + " Facturación: " + payload.facturacion + "\n" +
+                            emImp + " Detalles: " + payload.detalles + "\n\n" +
+                            "Confirmo enviar los datos.";
                                  
             // 4. Asignar el enlace estructurado de inmediato al botón verde
             const urlWhatsapp = "https://wa.me/584124450795?text=" + encodeURIComponent(textoMensaje);
