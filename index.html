@@ -7,7 +7,18 @@
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
         .form-container, .success-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border-top: 8px solid #cc0000; box-sizing: border-box; }
-        .logo-container { text-align: center; margin-bottom: 20px; }
+        /* ESTILOS DEL LOGO CORRECTAMENTE EN EL ÁREA DE STYLE */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .logo-img {
+            max-width: 80%;      /* Evita que se salga de la tarjeta */
+            height: auto;        /* Mantiene la proporción original */
+            max-height: 90px;    /* Limita la altura máxima para que se vea elegante */
+            object-fit: contain; /* Ajusta la imagen limpiamente */
+        }
+    
         h2 { text-align: center; color: #333; margin-bottom: 20px; }
         .form-group { margin-bottom: 18px; }
         label { display: block; font-weight: 600; margin-bottom: 6px; color: #444; }
@@ -27,22 +38,11 @@
 </head>
 <body>
 
-    <!-- PASO 1: Formulario de Registro -->
-    <div id="formCard" class="form-container">
+        <!-- PASO 1: Formulario de Registro -->
+        <div id="formCard" class="form-container">
         <div class="logo-container">
-            <img src="https://imgur.com/a/K6VSR8D" alt="PC MAYOR DEPOT" class="logo-img">
-        .logo-container {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .logo-img {
-            max-width: 80%;      /* Evita que se salga de la tarjeta */
-            height: auto;        /* Mantiene la proporción original */
-            max-height: 90px;    /* Limita la altura máxima para que se vea elegante */
-            object-fit: contain; /* Ajusta la imagen limpiamente */
-        }    
-           
+        <!-- URL Real y directa de tu logotipo asignada correctamente -->
+             <img src="https://i.imgur.com/ggfdC9o.jpeg" alt="PC MAYOR DEPOT" class="logo-img">
         </div>
         <h2>Datos del Cliente</h2>
         <form id="clientForm">
