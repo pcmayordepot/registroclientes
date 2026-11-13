@@ -172,98 +172,103 @@
 
 // MATRIZ DE PRECIOS Y HORAS SEGÚN EXCEL DE PC MAYOR DEPOT
 const VALOR_HORA = 35;
-const matrizPrecios = {
-"Ferretería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Supermercado": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Panadería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Venta de repuestos para vehículos": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Restaurante": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 6, "4 A 6": 9, "7 A 10": 13, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 420 },
-"Distribuidora Almacén con sucursales": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
-"Farmacia (No maneja lotes)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Farmacia / Droguería (Manejo de lotes)": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
-"Tecnología (Manejo de seriales)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Taller Mecánico (Ordenes de Servicio)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Tienda de ropa y calzado (Tallas y colores)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Colegios": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
-"Gimnasios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Servicios en General": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Condominios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-"Otros": { ORDINARIO: "EVALUAR", ESPECIAL: "EVALUAR", "1 A 3": "EVALUAR", "4 A 6": "EVALUAR", "7 A 10": "EVALUAR", "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: "EVALUAR" }
-};
-document.getElementById('quoteForm').addEventListener('submit', function(e) {
-e.preventDefault();
-const cliente = document.getElementById('clienteNombre').value;
-const actividad = document.getElementById('actividad').value;
-const contribuyente = document.getElementById('contribuyente').value;
-const usuarios = document.getElementById('usuarios').value;
-const facturacion = document.getElementById('facturacion').value;
-// Mostrar Pantalla de Carga Psicológica
-document.getElementById('stepForm').classList.add('hidden');
-document.getElementById('stepLoading').classList.remove('hidden');
-// Cambio de mensaje a los 2 segundos para mantener atención
-setTimeout(() => {
-document.getElementById('loadingTitle').innerText = "Calculando horas técnicas...";
-document.getElementById('loadingSubtitle').innerText = "Dimensionando inversión base y capacitación.";
-}, 2000);
-// Mostrar resultado a los 4 segundos
-setTimeout(() => {
-procesarCalculo(cliente, actividad, contribuyente, usuarios, facturacion);
-document.getElementById('stepLoading').classList.add('hidden');
-document.getElementById('stepResult').classList.remove('hidden');
-}, 4000);
-});
-function procesarCalculo(cliente, actividad, contribuyente, usuarios, facturacion) {
-document.getElementById('resCliente').innerText = cliente;
-const regla = matrizPrecios[actividad];
-const hContrib = regla[contribuyente];
-const hUser = regla[usuarios];
-const hFact = regla[facturacion];
-const invBase = regla.inversion;
-let mensajeWhatsapp = "";
-// Verificar si algún parámetro exige evaluación manual
-if (hContrib === "EVALUAR" || hUser === "EVALUAR" || invBase === "EVALUAR") {
-document.getElementById('numericQuoteSection').classList.add('hidden');
-document.getElementById('evalQuoteSection').classList.remove('hidden');
-mensajeWhatsapp = Hola PC MAYOR DEPOT. Realicé una simulación de presupuesto:\n\n +
-Cliente: ${cliente}\n +
-Actividad: ${actividad}\n +
-Contribuyente: ${contribuyente}\n +
-Usuarios: ${usuarios}\n +
-Facturación: ${facturacion}\n\n +
-El sistema indica que mi proyecto requiere *Evaluación Técnica Personalizada*. Quedo atento.;
-} else {
-document.getElementById('numericQuoteSection').classList.remove('hidden');
-document.getElementById('evalQuoteSection').classList.add('hidden');
-const totalHoras = hContrib + hUser + hFact;
-const costoAdiestramiento = totalHoras * VALOR_HORA;
-const granTotal = invBase + costoAdiestramiento;
-// Inyectar valores en la interfaz
-document.getElementById('resInversion').innerText = invBase + " €";
-document.getElementById('resHorasContrib').innerText = hContrib + " hrs";
-document.getElementById('resHorasUser').innerText = hUser + " hrs";
-document.getElementById('resHorasFact').innerText = hFact + " hrs";
-document.getElementById('resTotalHoras').innerText = totalHoras;
-document.getElementById('resCostoHoras').innerText = costoAdiestramiento + " €";
-document.getElementById('resTotalFinal').innerText = granTotal + " €";
-mensajeWhatsapp = Hola PC MAYOR DEPOT. He generado mi estimado de inversión en su web:\n\n +
-Cliente: ${cliente}\n +
-Actividad: ${actividad}\n +
-Contribuyente: ${contribuyente} (${hContrib} hrs)\n +
-Usuarios: ${usuarios} (${hUser} hrs)\n +
-Facturación: ${facturacion} (${hFact} hrs)\n\n +
-Instalación Base: ${invBase} €\n +
-Adiestramiento (${totalHoras} hrs x 35 €): ${costoAdiestramiento} €\n +
-TOTAL ESTIMADO: ${granTotal} €\n\n +
-Deseo coordinar la evaluación técnica definitiva.;
-}
-const urlWa = "wa.me" + encodeURIComponent(mensajeWhatsapp);
-document.getElementById('btnWhatsappSend').href = urlWa;
-}
-function reiniciarCotizador() {
-document.getElementById('stepResult').classList.add('hidden');
-document.getElementById('loadingTitle').innerText = "Revisando requerimientos técnicos...";
-document.getElementById('loadingSubtitle').innerText = "Analizando estructura operativa de la empresa.";
-document.getElementById('stepForm').classList.remove('hidden');
-}
+        const matrizPrecios = {
+            "Ferretería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Supermercado": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Panadería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Venta de repuestos para vehículos": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Restaurante": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 6, "4 A 6": 9, "7 A 10": 13, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 420 },
+            "Distribuidora Almacén con sucursales": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+            "Farmacia (No maneja lotes)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Farmacia / Droguería (Manejo de lotes)": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+            "Tecnología (Manejo de seriales)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Taller Mecánico (Ordenes de Servicio)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Tienda de ropa y calzado (Tallas y colores)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Colegios": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+            "Gimnasios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Servicios en General": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Condominios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Otros": { ORDINARIO: "EVALUAR", ESPECIAL: "EVALUAR", "1 A 3": "EVALUAR", "4 A 6": "EVALUAR", "7 A 10": "EVALUAR", "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: "EVALUAR" }
+        };
+
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+            const cliente = document.getElementById('clienteNombre').value;
+            const actividad = document.getElementById('actividad').value;
+            const contribuyente = document.getElementById('contribuyente').value;
+            const usuarios = document.getElementById('usuarios').value;
+            const facturacion = document.getElementById('facturacion').value;
+
+        // Mostrar Pantalla de Carga Psicológica
+        document.getElementById('stepForm').classList.add('hidden');
+        document.getElementById('stepLoading').classList.remove('hidden');
+
+        // Cambio de mensaje a los 2 segundos para mantener atención
+        setTimeout(() => {
+            document.getElementById('loadingTitle').innerText = "Calculando horas técnicas...";
+            document.getElementById('loadingSubtitle').innerText = "Dimensionando inversión base y capacitación.";
+        }, 2000);
+
+        // Mostrar resultado a los 4 segundos
+        setTimeout(() => {
+            procesarCalculo(cliente, actividad, contribuyente, usuarios, facturacion);
+            document.getElementById('stepLoading').classList.add('hidden');
+            document.getElementById('stepResult').classList.remove('hidden');
+        }, 4000);
+        });
+        function procesarCalculo(cliente, actividad, contribuyente, usuarios, facturacion) {
+            document.getElementById('resCliente').innerText = cliente;
+            const regla = matrizPrecios[actividad];
+            const hContrib = regla[contribuyente];
+            const hUser = regla[usuarios];
+            const hFact = regla[facturacion];
+            const invBase = regla.inversion;
+            let mensajeWhatsapp = "";
+
+        // Verificar si algún parámetro exige evaluación manual
+            if (hContrib === "EVALUAR" || hUser === "EVALUAR" || invBase === "EVALUAR") {
+                document.getElementById('numericQuoteSection').classList.add('hidden');
+                document.getElementById('evalQuoteSection').classList.remove('hidden');
+                mensajeWhatsapp = Hola PC MAYOR DEPOT. Realicé una simulación de presupuesto:\n\n +
+                Cliente: ${cliente}\n +
+                Actividad: ${actividad}\n +
+                Contribuyente: ${contribuyente}\n +
+                Usuarios: ${usuarios}\n +
+                Facturación: ${facturacion}\n\n +
+                El sistema indica que mi proyecto requiere *Evaluación Técnica Personalizada*. Quedo atento.;
+            } else {
+                    document.getElementById('numericQuoteSection').classList.remove('hidden');
+                    document.getElementById('evalQuoteSection').classList.add('hidden');
+                    const totalHoras = hContrib + hUser + hFact;
+                    const costoAdiestramiento = totalHoras * VALOR_HORA;
+                    const granTotal = invBase + costoAdiestramiento;
+        // Inyectar valores en la interfaz
+            document.getElementById('resInversion').innerText = invBase + " €";
+            document.getElementById('resHorasContrib').innerText = hContrib + " hrs";
+            document.getElementById('resHorasUser').innerText = hUser + " hrs";
+            document.getElementById('resHorasFact').innerText = hFact + " hrs";
+            document.getElementById('resTotalHoras').innerText = totalHoras;
+            document.getElementById('resCostoHoras').innerText = costoAdiestramiento + " €";
+            document.getElementById('resTotalFinal').innerText = granTotal + " €";
+            mensajeWhatsapp = Hola PC MAYOR DEPOT. He generado mi estimado de inversión en su web:\n\n +
+                Cliente: ${cliente}\n +
+                Actividad: ${actividad}\n +
+                Contribuyente: ${contribuyente} (${hContrib} hrs)\n +
+                Usuarios: ${usuarios} (${hUser} hrs)\n +
+                Facturación: ${facturacion} (${hFact} hrs)\n\n +
+                Instalación Base: ${invBase} €\n +
+                Adiestramiento (${totalHoras} hrs x 35 €): ${costoAdiestramiento} €\n +
+                TOTAL ESTIMADO: ${granTotal} €\n\n +
+                Deseo coordinar la evaluación técnica definitiva.;
+                }
+                const urlWa = "wa.me" + encodeURIComponent(mensajeWhatsapp);
+                document.getElementById('btnWhatsappSend').href = urlWa;
+            }
+            function reiniciarCotizador() {
+                document.getElementById('stepResult').classList.add('hidden');
+                document.getElementById('loadingTitle').innerText = "Revisando requerimientos técnicos...";
+                document.getElementById('loadingSubtitle').innerText = "Analizando estructura operativa de la empresa.";
+                document.getElementById('stepForm').classList.remove('hidden');
+            }
 
 
