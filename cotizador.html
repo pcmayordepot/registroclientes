@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimado de Inversión - PC MAYOR DEPOT</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 520px; border-top: 8px solid #cc0000; box-sizing: border-box; }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; color: #444; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        button, .btn-whatsapp { width: 100%; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-sizing: border-box; text-align: center; }
+        .btn-submit { background-color: #cc0000; color: white; margin-top: 10px; }
+        .btn-submit:hover { background-color: #990000; }
+        .btn-whatsapp { background-color: #25D366; color: white; text-decoration: none; display: block; margin-top: 20px; height: 48px; line-height: 24px; }
+        .btn-whatsapp:hover { background-color: #128C7E; }
+        .btn-secondary { background-color: #e9ecef; color: #333; margin-top: 10px; font-size: 14px; }
+        .btn-secondary:hover { background-color: #dde0e3; }
+        .hidden { display: none; }
+        
+        /* Animación de carga */
+        .loading-box { text-align: center; padding: 40px 10px; }
+        .spinner { border: 5px solid #f3f3f3; border-top: 5px solid #cc0000; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Estilos del Presupuesto */
+        .quote-box { background-color: #f8f9fa; border-left: 4px solid #cc0000; padding: 18px; border-radius: 6px; margin-top: 15px; }
+        .quote-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; color: #333; border-bottom: 1px dashed #ddd; padding-bottom: 6px; }
+        .quote-total { display: flex; justify-content: space-between; margin-top: 15px; font-size: 19px; font-weight: bold; color: #cc0000; padding-top: 10px; border-top: 2px solid #ccc; }
+        .disclaimer { font-size: 12px; color: #666; text-align: center; margin-top: 15px; font-style: italic; }
+        .eval-alert { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 6px; color: #856404; font-size: 15px; line-height: 1.5; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA 1: Formulario de Parámetros Técnicos -->
+    <div id="stepForm" class="card-container">
+        <div class="logo-container">
+            <h1 style="color: #cc0000; margin: 0;">PC MAYOR</h1>
+            <small style="color: #666; font-weight: bold; letter-spacing: 2px;">DEPOT</small>
+        </div>
+        <h2>Calculadora de Inversión</h2>
+        <form id="quoteForm">
+            <div class="form-group">
+                <label>Nombre de la Empresa o Contacto *</label>
+                <input type="text" id="clienteNombre" placeholder="Ej: Inversiones El Sol" required>
+            </div>
+
+            <div class="form-group">
+                <label>Actividad Económica de la Empresa *</label>
+                <select id="actividad" required>
+                    <option value="">Seleccione el rubro...</option>
+                    <option value="Ferretería">Ferretería</option>
+                    <option value="Supermercado">Supermercado / Mini Market</option>
+                    <option value="Panadería">Panadería</option>
+                    <option value="Venta de repuestos para vehículos">Venta de repuestos para vehículos</option>
+                    <option value="Restaurante">Restaurante</option>
+                    <option value="Distribuidora Almacén con sucursales">Distribuidora / Almacén con sucursales</option>
+                    <option value="Farmacia (No maneja lotes)">Farmacia (No maneja lotes)</option>
+                    <option value="Farmacia / Droguería (Manejo de lotes)">Farmacia / Droguería (Manejo de lotes)</option>
+                    <option value="Tecnología (Manejo de seriales)">Tecnología (Manejo de seriales)</option>
+                    <option value="Taller Mecánico (Ordenes de Servicio)">Taller Mecánico (Órdenes de Servicio)</option>
+                    <option value="Tienda de ropa y calzado (Tallas y colores)">Tienda de ropa y calzado (Tallas y colores)</option>
+                    <option value="Colegios">Colegios</option>
+                    <option value="Gimnasios">Gimnasios</option>
+                    <option value="Servicios en General">Servicios en General</option>
+                    <option value="Condominios">Condominios</option>
+                    <option value="Otros">Otros</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Contribuyente *</label>
+                <select id="contribuyente" required>
+                    <option value="">Seleccione...</option>
+                    <option value="ORDINARIO">Contribuyente Ordinario</option>
+                    <option value="ESPECIAL">Contribuyente Especial</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Cantidad de Usuarios / Estaciones *</label>
+                <select id="usuarios" required>
+                    <option value="">Seleccione...</option>
+                    <option value="1 A 3">De 1 a 3 usuarios</option>
+                    <option value="4 A 6">De 4 a 6 usuarios</option>
+                    <option value="7 A 10">De 7 a 10 usuarios</option>
+                    <option value="MAS 10">Más de 10 usuarios</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Método de Facturación *</label>
+                <select id="facturacion" required>
+                    <option value="">Seleccione...</option>
+                    <option value="FISCAL">Impresora Fiscal</option>
+                    <option value="DIGITAL">Imprenta Digital</option>
+                    <option value="FORMA LIBRE">Forma Libre</option>
+                    <option value="MANUAL">Facturación Manual / Aún no tengo</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Calcular Presupuesto Estimado</button>
+        </form>
+    </div>
+
+    <!-- PANTALLA 2: Secuencia de Espera Psicológica -->
+    <div id="stepLoading" class="card-container hidden">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <h3 id="loadingTitle" style="color: #333; margin-bottom: 10px;">Revisando requerimientos técnicos...</h3>
+            <p id="loadingSubtitle" style="color: #666; font-size: 14px;">Analizando estructura operativa de la empresa.</p>
+        </div>
+    </div>
+
+    <!-- PANTALLA 3: Resultado del Presupuesto Estimado -->
+    <div id="stepResult" class="card-container hidden">
+        <div class="logo-container">
+            <h1 style="color: #cc0000; margin: 0;">PC MAYOR</h1>
+            <small style="color: #666; font-weight: bold; letter-spacing: 2px;">ESTIMADO DE INVERSIÓN</small>
+        </div>
+        
+        <p style="color: #444; text-align: center; font-size: 15px;">
+            Estimado preparado para: <strong id="resCliente"></strong>
+        </p>
+
+        <!-- Contenedor para Cálculo Numérico Estándar -->
+        <div id="numericQuoteSection">
+            <div class="quote-box">
+                <div class="quote-row">
+                    <span>Instalación y Configuración Base:</span>
+                    <strong id="resInversion">0 €</strong>
+                </div>
+                <div class="quote-row">
+                    <span>Horas Técnicas (Contribuyente):</span>
+                    <strong id="resHorasContrib">0 hrs</strong>
+                </div>
+                <div class="quote-row">
+                    <span>Horas Técnicas (Estaciones):</span>
+                    <strong id="resHorasUser">0 hrs</strong>
+                </div>
+                <div class="quote-row">
+                    <span>Horas Técnicas (Facturación):</span>
+                    <strong id="resHorasFact">0 hrs</strong>
+                </div>
+                <div class="quote-row" style="background-color: #eef2f5; padding: 6px; border-radius: 4px;">
+                    <span>Adiestramiento (<span id="resTotalHoras">0</span> hrs x 35 €):</span>
+                    <strong id="resCostoHoras">0 €</strong>
+                </div>
+                <div class="quote-total">
+                    <span>INVERSIÓN TOTAL ESTIMADA:</span>
+                    <span id="resTotalFinal">0 €</span>
+                </div>
+            </div>
+            <p class="disclaimer">* Presupuesto referencial sujeto a evaluación técnica definitiva.</p>
+        </div>
+
+        <!-- Contenedor para Casos "EVALUAR" -->
+        <div id="evalQuoteSection" class="hidden">
+            <div class="eval-alert">
+                <strong>Requiere Evaluación Técnica Personalizada</strong><br>
+                Debido a la magnitud de usuarios o la naturaleza específica de su actividad económica, un especialista de ingeniería debe dimensionar el proyecto a medida.
+            </div>
+        </div>
+
+        <a id="btnWhatsappSend" href="#" target="_blank" class="btn-whatsapp">
+            💬 Solicitar Cotización Formal por WhatsApp
+        </a>
+
+// MATRIZ DE PRECIOS Y HORAS SEGÚN EXCEL DE PC MAYOR DEPOT
+const VALOR_HORA = 35;
+const matrizPrecios = {
+"Ferretería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Supermercado": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Panadería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Venta de repuestos para vehículos": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Restaurante": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 6, "4 A 6": 9, "7 A 10": 13, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 420 },
+"Distribuidora Almacén con sucursales": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+"Farmacia (No maneja lotes)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Farmacia / Droguería (Manejo de lotes)": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+"Tecnología (Manejo de seriales)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Taller Mecánico (Ordenes de Servicio)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Tienda de ropa y calzado (Tallas y colores)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Colegios": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+"Gimnasios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Servicios en General": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Condominios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+"Otros": { ORDINARIO: "EVALUAR", ESPECIAL: "EVALUAR", "1 A 3": "EVALUAR", "4 A 6": "EVALUAR", "7 A 10": "EVALUAR", "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: "EVALUAR" }
+};
+document.getElementById('quoteForm').addEventListener('submit', function(e) {
+e.preventDefault();
+const cliente = document.getElementById('clienteNombre').value;
+const actividad = document.getElementById('actividad').value;
+const contribuyente = document.getElementById('contribuyente').value;
+const usuarios = document.getElementById('usuarios').value;
+const facturacion = document.getElementById('facturacion').value;
+// Mostrar Pantalla de Carga Psicológica
+document.getElementById('stepForm').classList.add('hidden');
+document.getElementById('stepLoading').classList.remove('hidden');
+// Cambio de mensaje a los 2 segundos para mantener atención
+setTimeout(() => {
+document.getElementById('loadingTitle').innerText = "Calculando horas técnicas...";
+document.getElementById('loadingSubtitle').innerText = "Dimensionando inversión base y capacitación.";
+}, 2000);
+// Mostrar resultado a los 4 segundos
+setTimeout(() => {
+procesarCalculo(cliente, actividad, contribuyente, usuarios, facturacion);
+document.getElementById('stepLoading').classList.add('hidden');
+document.getElementById('stepResult').classList.remove('hidden');
+}, 4000);
+});
+function procesarCalculo(cliente, actividad, contribuyente, usuarios, facturacion) {
+document.getElementById('resCliente').innerText = cliente;
+const regla = matrizPrecios[actividad];
+const hContrib = regla[contribuyente];
+const hUser = regla[usuarios];
+const hFact = regla[facturacion];
+const invBase = regla.inversion;
+let mensajeWhatsapp = "";
+// Verificar si algún parámetro exige evaluación manual
+if (hContrib === "EVALUAR" || hUser === "EVALUAR" || invBase === "EVALUAR") {
+document.getElementById('numericQuoteSection').classList.add('hidden');
+document.getElementById('evalQuoteSection').classList.remove('hidden');
+mensajeWhatsapp = Hola PC MAYOR DEPOT. Realicé una simulación de presupuesto:\n\n +
+Cliente: ${cliente}\n +
+Actividad: ${actividad}\n +
+Contribuyente: ${contribuyente}\n +
+Usuarios: ${usuarios}\n +
+Facturación: ${facturacion}\n\n +
+El sistema indica que mi proyecto requiere *Evaluación Técnica Personalizada*. Quedo atento.;
+} else {
+document.getElementById('numericQuoteSection').classList.remove('hidden');
+document.getElementById('evalQuoteSection').classList.add('hidden');
+const totalHoras = hContrib + hUser + hFact;
+const costoAdiestramiento = totalHoras * VALOR_HORA;
+const granTotal = invBase + costoAdiestramiento;
+// Inyectar valores en la interfaz
+document.getElementById('resInversion').innerText = invBase + " €";
+document.getElementById('resHorasContrib').innerText = hContrib + " hrs";
+document.getElementById('resHorasUser').innerText = hUser + " hrs";
+document.getElementById('resHorasFact').innerText = hFact + " hrs";
+document.getElementById('resTotalHoras').innerText = totalHoras;
+document.getElementById('resCostoHoras').innerText = costoAdiestramiento + " €";
+document.getElementById('resTotalFinal').innerText = granTotal + " €";
+mensajeWhatsapp = Hola PC MAYOR DEPOT. He generado mi estimado de inversión en su web:\n\n +
+Cliente: ${cliente}\n +
+Actividad: ${actividad}\n +
+Contribuyente: ${contribuyente} (${hContrib} hrs)\n +
+Usuarios: ${usuarios} (${hUser} hrs)\n +
+Facturación: ${facturacion} (${hFact} hrs)\n\n +
+Instalación Base: ${invBase} €\n +
+Adiestramiento (${totalHoras} hrs x 35 €): ${costoAdiestramiento} €\n +
+TOTAL ESTIMADO: ${granTotal} €\n\n +
+Deseo coordinar la evaluación técnica definitiva.;
+}
+const urlWa = "wa.me" + encodeURIComponent(mensajeWhatsapp);
+document.getElementById('btnWhatsappSend').href = urlWa;
+}
+function reiniciarCotizador() {
+document.getElementById('stepResult').classList.add('hidden');
+document.getElementById('loadingTitle').innerText = "Revisando requerimientos técnicos...";
+document.getElementById('loadingSubtitle').innerText = "Analizando estructura operativa de la empresa.";
+document.getElementById('stepForm').classList.remove('hidden');
+}
+
+
