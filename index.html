@@ -3,220 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Cliente - PCagrupado DEPOT</title>
+    <title>Cotizador y Registro de Clientes - PC MAYOR DEPOT</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .form-container, .success-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border-top: 8px solid #cc0000; box-sizing: border-box; }
-        /* ESTILOS DEL LOGO CORRECTAMENTE EN EL ÁREA DE STYLE */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .logo-img {
-            max-width: 80%;      /* Evita que se salga de la tarjeta */
-            height: auto;        /* Mantiene la proporción original */
-            max-height: 90px;    /* Limita la altura máxima para que se vea elegante */
-            object-fit: contain; /* Ajusta la imagen limpiamente */
-        }
-    
-        h2 { text-align: center; color: #333; margin-bottom: 20px; }
-        .form-group { margin-bottom: 18px; }
-        label { display: block; font-weight: 600; margin-bottom: 6px; color: #444; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        button, .btn-whatsapp { width: 100%; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-sizing: border-box; text-align: center; }
-        .btn-submit { background-color: #cc0000; color: white; }
+        .card-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 520px; border-top: 8px solid #cc0000; box-sizing: border-box; }
+        
+        .logo-container { text-align: center; margin-bottom: 22px; }
+        .logo-img { max-width: 80%; height: auto; max-height: 85px; object-fit: contain; }
+        
+        h2 { text-align: center; color: #333; margin-top: 0; margin-bottom: 18px; }
+        .sub-header { color: #666; font-size: 14px; text-align: center; margin-top: -12px; margin-bottom: 22px; line-height: 1.4; }
+        
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; color: #444; font-size: 14px; }
+        input, select { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #fff; transition: border-color 0.2s; }
+        input:focus, select:focus { outline: none; border-color: #cc0000; }
+        
+        button, .btn-whatsapp, .btn-secondary { width: 100%; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-sizing: border-box; text-align: center; }
+        .btn-submit { background-color: #cc0000; color: white; margin-top: 10px; }
         .btn-submit:hover { background-color: #990000; }
-        .btn-whatsapp { background-color: #25D366; color: white; text-decoration: none; display: block; margin-top: 25px; height: 48px; line-height: 24px; }
+        
+        .btn-whatsapp { background-color: #25D366; color: white; text-decoration: none; display: block; margin-top: 20px; height: 48px; line-height: 24px; }
         .btn-whatsapp:hover { background-color: #128C7E; }
+        
+        .btn-secondary { background-color: #e9ecef; color: #333; margin-top: 10px; font-size: 14px; text-decoration: none; display: block; line-height: 22px; }
+        .btn-secondary:hover { background-color: #dde0e3; }
+        
         .hidden { display: none; }
-        .success-container { text-align: left; }
-        .success-icon { font-size: 50px; color: #25D366; text-align: center; margin-bottom: 10px; }
-        .preview-list { background-color: #f8f9fa; border-left: 4px solid #cc0000; padding: 15px; border-radius: 6px; margin-top: 15px; }
-        .preview-item { margin-bottom: 10px; font-size: 15px; color: #333; }
-        .preview-item strong { color: #555; }
+        
+        /* Animación de Espera Psicológica */
+        .loading-box { text-align: center; padding: 40px 10px; }
+        .spinner { border: 5px solid #f3f3f3; border-top: 5px solid #cc0000; border-radius: 50%; width: 55px; height: 55px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Resumen de Datos del Cliente */
+        .preview-list { background-color: #f8f9fa; border-left: 4px solid #555; padding: 12px 15px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+        .preview-item { margin-bottom: 6px; color: #333; }
+        .preview-item:last-child { margin-bottom: 0; }
+        
+        /* Caja de Cotización */
+        .quote-box { background-color: #fbfcfd; border-left: 4px solid #cc0000; padding: 16px; border-radius: 6px; margin-top: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .quote-row { display: flex; justify-content: space-between; margin-bottom: 9px; font-size: 14px; color: #333; border-bottom: 1px dashed #e2e5e8; padding-bottom: 6px; }
+        .quote-total { display: flex; justify-content: space-between; margin-top: 14px; font-size: 18px; font-weight: bold; color: #cc0000; padding-top: 10px; border-top: 2px solid #ddd; }
+        .disclaimer { font-size: 12px; color: #666; text-align: center; margin-top: 12px; font-style: italic; }
+        
+        .eval-alert { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 6px; color: #856404; font-size: 14px; line-height: 1.5; margin-top: 12px; }
     </style>
 </head>
 <body>
 
-        <!-- PASO 1: Formulario de Registro -->
-        <div id="formCard" class="form-container">
+    <!-- PASO 1: Formulario Unificado (Datos + Requerimientos) -->
+    <div id="stepForm" class="card-container">
         <div class="logo-container">
-        <!-- URL Real y directa de tu logotipo asignada correctamente -->
-             <img src="https://i.imgur.com/ggfdC9o.jpeg" alt="PC MAYOR DEPOT" class="logo-img">
+            <img src="https://i.imgur.com/ggfdC9o.jpeg" alt="PC MAYOR DEPOT" class="logo-img">
         </div>
-        <h2>Datos del Cliente</h2>
-        <form id="clientForm">
-            <div class="form-group"><label>Nombre Persona Contacto*</label><input type="text" id="contacto" required></div>
-            <div class="form-group"><label>Nombre de la Empresa *</label><input type="text" id="empresa" required></div>
-            <div class="form-group"><label>Teléfono *</label><input type="tel" id="telefono" required></div>
-            <div class="form-group"><label>Correo Electrónico *</label><input type="email" id="email" required></div>
-            <div class="form-group"><label>Ubicación *</label><input type="text" id="ubicacion" required></div>
+        <h2>Datos y Requerimientos</h2>
+        <p class="sub-header">Complete sus datos para calcular su presupuesto estimado al instante:</p>
+
+        <form id="clientQuoteForm">
+            <div class="form-group">
+                <label>Nombre de la Persona de Contacto *</label>
+                <input type="text" id="contacto" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre de la Empresa *</label>
+                <input type="text" id="empresa" placeholder="Ej: Inversiones El Sol, C.A." required>
+            </div>
+
+            <div class="form-group">
+                <label>Teléfono de Contacto *</label>
+                <input type="tel" id="telefono" placeholder="Ej: 04141234567" required>
+            </div>
+
+            <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" id="email" placeholder="ejemplo@empresa.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Ubicación (Ciudad / Estado) *</label>
+                <input type="text" id="ubicacion" placeholder="Ej: Valencia, Carabobo" required>
+            </div>
+
             <div class="form-group">
                 <label>Actividad Económica *</label>
                 <select id="actividad" required>
-                        <option value="">Seleccione...</option>
-                        <option value="Ferretería">Ferretería</option>
-                        <option value="Supermercado">Supermercado / Mini Market</option>
-                        <option value="Panadería">Panadería</option> 
-                        <option value="Venta de repuestos para vehículos">Venta de repuestos para vehículos</option>  
-                        <option value="Restaurante">Restaurante (Mesas/Areas/Mesoneros/Comandas)</option>
-                        <option value="Distribuidora Almacén con sucursales">Distribuidora Almacén con sucursales</option>                                  
-                        <option value="Farmacia (NO Maneja lotes)">Farmacia (NO Maneja lotes)</option>
-                        <option value="Farmacia / Droguería (Manejo de lotes)">Farmacia / Droguería (Manejo de lotes)</option>   
-                        <option value="Tecnología (Manejo de seriales)">Tecnología (Manejo de seriales)</option> 
-                        <option value="Taller Mecánico (Ordenes de Servicio)">Taller Mecánico (Ordenes de Servicio)</option> 
-                        <option value="Tienda de ropa y calzado (Tallas y colores)">Tienda de ropa y calzado (Tallas y colores)</option> 
-                        <option value="Colegios">Colegios</option>  
-                        <option value="Gimnasios">Gimnasios</option>  
-                        <option value="Servicios en General">Servicios en General</option> 
-                        <option value="Condominios">Condominios</option>  
-                        <option value="Otros">Otros</option>
+                    <option value="">Seleccione el rubro...</option>
+                    <option value="Ferretería">Ferretería</option>
+                    <option value="Supermercado">Supermercado / Mini Market</option>
+                    <option value="Panadería">Panadería</option>
+                    <option value="Venta de repuestos para vehículos">Venta de repuestos para vehículos</option>
+                    <option value="Restaurante">Restaurante (Mesas/Áreas/Comandas)</option>
+                    <option value="Distribuidora Almacén con sucursales">Distribuidora / Almacén con sucursales</option>
+                    <option value="Farmacia (No maneja lotes)">Farmacia (No maneja lotes)</option>
+                    <option value="Farmacia / Droguería (Manejo de lotes)">Farmacia / Droguería (Manejo de lotes)</option>
+                    <option value="Tecnología (Manejo de seriales)">Tecnología (Manejo de seriales)</option>
+                    <option value="Taller Mecánico (Ordenes de Servicio)">Taller Mecánico (Órdenes de Servicio)</option>
+                    <option value="Tienda de ropa y calzado (Tallas y colores)">Tienda de ropa y calzado (Tallas y colores)</option>
+                    <option value="Colegios">Colegios</option>
+                    <option value="Gimnasios">Gimnasios</option>
+                    <option value="Servicios en General">Servicios en General</option>
+                    <option value="Condominios">Condominios</option>
+                    <option value="Otros">Otros</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label>¿Tipo de Contribuyente? *</label>
                 <select id="contribuyente" required>
                     <option value="">Seleccione...</option>
-                    <option value="Ordinario">Contribuyente Ordinario</option>
-                    <option value="Especial">Contribuyente Especial</option>
-                    <option value="Otro">Otro</option>
+                    <option value="ORDINARIO">Contribuyente Ordinario</option>
+                    <option value="ESPECIAL">Contribuyente Especial</option>
                 </select>
-            </div>   
+            </div>
+
             <div class="form-group">
                 <label>¿Cuántas estaciones utilizarían el sistema? *</label>
                 <select id="estaciones" required>
-                <option value="">Seleccione...</option>
-                <option value="De 1 A 3">De 1 A 3</option>
-                <option value="De 4 A 6">De 4 A 6</option> 
-                <option value="De 7 A 10">De 7 A 10</option>  
-                <option value="10 o mas estaciones">10 o mas estaciones</option> 
+                    <option value="">Seleccione...</option>
+                    <option value="1 A 3">De 1 a 3 usuarios / estaciones</option>
+                    <option value="4 A 6">De 4 a 6 usuarios / estaciones</option>
+                    <option value="7 A 10">De 7 a 10 usuarios / estaciones</option>
+                    <option value="MAS 10">Más de 10 estaciones</option>
                 </select>
-            </div>      
+            </div>
+
             <div class="form-group">
                 <label>¿Cuál es su método de facturación? *</label>
                 <select id="facturacion" required>
-                <option value="">Seleccione...</option>    
-                <option value="Manual">Manual</option>    
-                <option value="Impresora Fiscal">Impresora Fiscal</option>
-                <option value="Forma Libre">Forma Libre</option>    
-                <option value="Facturacion Digital">Facturacion Digital</option>    
+                    <option value="">Seleccione...</option>
+                    <option value="FISCAL">Impresora Fiscal</option>
+                    <option value="DIGITAL">Facturación Digital / Imprenta Digital</option>
+                    <option value="FORMA LIBRE">Forma Libre</option>
+                    <option value="MANUAL">Facturación Manual / Aún no tengo</option>
                 </select>
-            </div>    
-            <div class="form-group"><label>Si selecciona impresora fiscal, indique marca/modelo</label><input type="text" id="detalles"></div>
-            
-            <button type="submit" class="btn-submit" id="btnEnviarTexto">Ver Resumen e Iniciar Chat</button>
+            </div>
+
+            <div class="form-group">
+                <label>Si utiliza impresora fiscal, indique marca/modelo (opcional)</label>
+                <input type="text" id="detalles" placeholder="Ej: Bixolon, HKA, Aclas, Bematech...">
+            </div>
+
+            <button type="submit" class="btn-submit">Calcular Presupuesto Estimado</button>
         </form>
     </div>
 
-    <!-- PASO 2: Resumen de Datos y Botón de WhatsApp Limpio -->
-    <div id="successCard" class="success-container hidden">
-        <div class="success-icon">✓</div>
-        <h2 style="text-align: center; margin-top: 0;">¡Información Registrada!</h2>
-        <p style="color: #555; text-align: center; line-height: 1.4; margin-bottom: 20px;">
-            Los datos han sido pre-guardados en el sistema de forma correcta.<br><strong>Por favor, verifique el resumen antes de enviar por WhatsApp:</strong>
-        </p>
-        
-        <!-- Lista Dinámica de Datos Capturados -->
-        <div class="preview-list">
-            <div class="preview-item">👤 <strong>Contacto:</strong> <span id="lblContacto"></span></div>
-            <div class="preview-item">🏢 <strong>Empresa:</strong> <span id="lblEmpresa"></span></div>
-            <div class="preview-item">📞 <strong>Teléfono:</strong> <span id="lblTelefono"></span></div>
-            <div class="preview-item">✉️ <strong>Email:</strong> <span id="lblEmail"></span></div>
-            <div class="preview-item">📍 <strong>Ubicación:</strong> <span id="lblUbicacion"></span></div>
-            <div class="preview-item">💼 <strong>Actividad:</strong> <span id="lblActividad"></span></div>
-            <div class="preview-item">⚖️ <strong>Contribuyente:</strong> <span id="lblContribuyente"></span></div>
-            <div class="preview-item">👥 <strong>Estaciones:</strong> <span id="lblEstaciones"></span></div>
-            <div class="preview-item">🧾 <strong>Facturación:</strong> <span id="lblFacturacion"></span></div>
-            <div class="preview-item">🖨️ <strong>Detalles:</strong> <span id="lblDetalles"></span></div>
+    <!-- PASO 2: Secuencia de Espera Psicológica -->
+    <div id="stepLoading" class="card-container hidden">
+        <div class="logo-container">
+            <img src="https://i.imgur.com/ggfdC9o.jpeg" alt="PC MAYOR DEPOT" class="logo-img">
         </div>
-        
-        <!-- BOTÓN NATIVO DE WHATSAPP - Ejecución inmediata certificada por clics humanos legítimos -->
-        <a id="whatsappLink" href="#" target="_blank" class="btn-whatsapp">
-            💬 Confirmo enviar datos por WhatsApp
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <h3 id="loadingTitle" style="color: #333; margin-bottom: 10px;">Revisando requerimientos técnicos...</h3>
+            <p id="loadingSubtitle" style="color: #666; font-size: 14px;">Analizando estructura operativa de la empresa.</p>
+        </div>
+    </div>
+
+    <!-- PASO 3: Presupuesto Estimado y Confirmación -->
+    <div id="stepResult" class="card-container hidden">
+        <div class="logo-container">
+            <img src="https://i.imgur.com/ggfdC9o.jpeg" alt="PC MAYOR DEPOT" class="logo-img">
+        </div>
+
+        <h2>Presupuesto Estimado</h2>
+
+        <!-- Resumen Rápido del Cliente -->
+        <div class="preview-list">
+            <div class="preview-item">👤 <strong>Cliente:</strong> <span id="resCliente"></span></div>
+            <div class="preview-item">🏢 <strong>Empresa:</strong> <span id="resEmpresa"></span></div>
+            <div class="preview-item">📍 <strong>Ubicación:</strong> <span id="resUbicacion"></span></div>
+            <div class="preview-item">💼 <strong>Actividad:</strong> <span id="resActividad"></span></div>
+        </div>
+
+        <!-- Sección de Cotización Estándar -->
+        <div id="numericQuoteSection">
+            <div class="quote-box">
+                <div class="quote-row">
+                    <span>Instalación y Configuración Base:</span>
+                    <strong id="resInversion">0 €</strong>
+                </div>
+                <div class="quote-row">
+                    <span>Horas Técnicas (Contribuyente):</span>
+                    <strong id="resHorasContrib">0 hrs</strong>
+                </div>
+                <div class="quote-row">
+                    <span>Horas Técnicas (Estaciones):</span>
+                    <strong id="resHorasUser">0 hrs</strong>
+                </div>
+                <div class="quote-row">
+                    <span>Horas Técnicas (Facturación):</span>
+                    <strong id="resHorasFact">0 hrs</strong>
+                </div>
+                <div class="quote-row" style="background-color: #eef2f5; padding: 6px; border-radius: 4px;">
+                    <span>Adiestramiento (<span id="resTotalHoras">0</span> hrs x <span id="resValorHora">35</span> €):</span>
+                    <strong id="resCostoHoras">0 €</strong>
+                </div>
+                <div class="quote-total">
+                    <span>INVERSIÓN TOTAL ESTIMADA:</span>
+                    <span id="resTotalFinal">0 €</span>
+                </div>
+            </div>
+            <p class="disclaimer">* Presupuesto referencial sujeto a evaluación técnica definitiva.</p>
+        </div>
+
+        <!-- Sección de Evaluación Especial ("EVALUAR") -->
+        <div id="evalQuoteSection" class="hidden">
+            <div class="eval-alert">
+                <strong>Requiere Evaluación Técnica Personalizada</strong><br>
+                Debido a la magnitud de estaciones o la complejidad específica de su actividad económica, un especialista de ingeniería debe dimensionar el proyecto a medida.
+            </div>
+        </div>
+
+        <!-- Botón de Envío por WhatsApp -->
+        <a id="btnWhatsappSend" href="#" target="_blank" class="btn-whatsapp">
+            💬 Confirmar y Enviar Cotización por WhatsApp
         </a>
+
+        <!-- Botón para Modificar o Recalcular -->
+        <button type="button" class="btn-secondary" onclick="volverAlFormulario()">
+            ✏️ Modificar Datos / Recalcular
+        </button>
     </div>
 
     <script>
-       
+        // CONFIGURACIÓN
         const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwOYHHZ41luJ3X4tp7aG4m5623eOhu5oEGHoR9DqGFe9i7Q5qQfWbeRNEzex6iQPgnm/exec";
+        const TELEFONO_WHATSAPP = "584124450795";
+        const VALOR_HORA = 35;
+        const MONEDA = "€"; // Símbolo de moneda configurable (€ o $)
 
-        document.getElementById('clientForm').addEventListener('submit', function(e) {
+        // MATRIZ DE PRECIOS Y HORAS TÉCNICAS SEGÚN EXCEL PC MAYOR DEPOT
+        const matrizPrecios = {
+            "Ferretería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Supermercado": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Panadería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Venta de repuestos para vehículos": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Restaurante": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 6, "4 A 6": 9, "7 A 10": 13, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 420 },
+            "Distribuidora Almacén con sucursales": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+            "Farmacia (No maneja lotes)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Farmacia / Droguería (Manejo de lotes)": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+            "Tecnología (Manejo de seriales)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Taller Mecánico (Ordenes de Servicio)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Tienda de ropa y calzado (Tallas y colores)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Colegios": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
+            "Gimnasios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Servicios en General": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Condominios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
+            "Otros": { ORDINARIO: "EVALUAR", ESPECIAL: "EVALUAR", "1 A 3": "EVALUAR", "4 A 6": "EVALUAR", "7 A 10": "EVALUAR", "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: "EVALUAR" }
+        };
+
+        // GESTIÓN DEL ENVÍO DEL FORMULARIO
+        document.getElementById('clientQuoteForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // 1. Recopilar valores ingresados por el usuario
-            const payload = {
-                contacto: document.getElementById('contacto').value,
-                empresa: document.getElementById('empresa').value,
-                telefono: document.getElementById('telefono').value,
-                email: document.getElementById('email').value,
-                ubicacion: document.getElementById('ubicacion').value,
+
+            // 1. Capturar datos
+            const datosCliente = {
+                contacto: document.getElementById('contacto').value.trim(),
+                empresa: document.getElementById('empresa').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                ubicacion: document.getElementById('ubicacion').value.trim(),
                 actividad: document.getElementById('actividad').value,
                 contribuyente: document.getElementById('contribuyente').value,
                 estaciones: document.getElementById('estaciones').value,
                 facturacion: document.getElementById('facturacion').value,
-                detalles: document.getElementById('detalles').value || "No aplica"
+                detalles: document.getElementById('detalles').value.trim() || "No aplica"
             };
 
-            // 2. Inyectar visualmente los datos recolectados en la lista de resumen
-            document.getElementById('lblContacto').innerText = payload.contacto;
-            document.getElementById('lblEmpresa').innerText = payload.empresa;
-            document.getElementById('lblTelefono').innerText = payload.telefono;
-            document.getElementById('lblEmail').innerText = payload.email;
-            document.getElementById('lblUbicacion').innerText = payload.ubicacion;
-            document.getElementById('lblActividad').innerText = payload.actividad;
-            document.getElementById('lblContribuyente').innerText = payload.contribuyente;
-            document.getElementById('lblEstaciones').innerText = payload.estaciones;
-            document.getElementById('lblFacturacion').innerText = payload.facturacion;
-            document.getElementById('lblDetalles').innerText = payload.detalles;
+            // 2. Transición a Pantalla de Espera Psicológica
+            document.getElementById('stepForm').classList.add('hidden');
+            document.getElementById('stepLoading').classList.remove('hidden');
 
-            
-            // Definición segura de emojis usando códigos Unicode nativos
-            const emSaludo   = "\u{1F44B}"; // 👋
-            const emContacto = "\u{1F464}"; // 👤
-            const emEmpresa  = "\u{1F3E2}"; // 🏢
-            const emTelefono  = "\u{1F4DE}"; // 📞
-            const emEmail = "\u{2709}";    // ✉️
-            const emUbi      = "\u{1F4CD}"; // 📍
-            const emAct      = "\u{1F4BC}"; // 💼
-            const emBal      = "\u{2696}";  // ⚖
-            const emEst      = "\u{1F465}"; // 👥
-            const emFact     = "\u{1F9FE}"; // 🧾
-            const emImp      = "\u{1F5A8}"; // 🖨
-            
-            
-            // 3. Construir el texto final formateado para WhatsApp
-            const textoMensaje = "*Datos Cliente Sistemas*\n\n *Aquí están los detalles de mi solicitud:*\n\n" +
-                            emContacto + " Contacto: " + payload.contacto + "\n" +
-                            emEmpresa + " Empresa: " + payload.empresa + "\n" +
-                            emTelefono + " Telefono: " + payload.telefono + "\n" +
-                            emEmail + " Email: " + payload.email + "\n" +
-                            emUbi + " Ubicación: " + payload.ubicacion + "\n" +
-                            emAct + " Actividad: " + payload.actividad + "\n" +
-                            emBal + " Contribuyente: " + payload.contribuyente + "\n" +
-                            emEst + " Estaciones: " + payload.estaciones + "\n" +
-                            emFact + " Facturación: " + payload.facturacion + "\n" +
-                            emImp + " Detalles: " + payload.detalles + "\n\n" +
-                            "Confirmo enviar los datos.";
-                                 
-            // 4. Asignar el enlace estructurado de inmediato al botón verde
-            const urlWhatsapp = "https://wa.me/584124450795?text=" + encodeURIComponent(textoMensaje);
-            document.getElementById('whatsappLink').href = urlWhatsapp;
+            // Cambio dinámico de mensaje a los 1.8 segundos
+            setTimeout(() => {
+                document.getElementById('loadingTitle').innerText = "Elaborando cotización técnica...";
+                document.getElementById('loadingSubtitle').innerText = "Dimensionando inversión base, estaciones y adiestramiento.";
+            }, 1800);
 
-            // 5. Ocultar el formulario y desplegar la tarjeta de confirmación de forma síncrona
-            document.getElementById('formCard').classList.add('hidden');
-            document.getElementById('successCard').classList.remove('hidden');
+            // 3. Procesar cálculo y mostrar resultado a los 3.6 segundos
+            setTimeout(() => {
+                const resultadoCalculo = calcularPresupuesto(datosCliente);
+                
+                // Enviar silenciosamente en segundo plano a Google Sheets con datos completos
+                enviarAGoogleSheets(datosCliente, resultadoCalculo);
 
-            // 6. Enviar en segundo plano y de manera silenciosa los datos a Google Sheets
+                // Mostrar pantalla final
+                document.getElementById('stepLoading').classList.add('hidden');
+                document.getElementById('stepResult').classList.remove('hidden');
+            }, 3600);
+        });
+
+        // CÁLCULO DE PRESUPUESTO Y MENSAJE WHATSAPP
+        function calcularPresupuesto(datos) {
+            document.getElementById('resCliente').innerText = datos.contacto;
+            document.getElementById('resEmpresa').innerText = datos.empresa;
+            document.getElementById('resUbicacion').innerText = datos.ubicacion;
+            document.getElementById('resActividad').innerText = datos.actividad;
+
+            const regla = matrizPrecios[datos.actividad] || matrizPrecios["Otros"];
+            const hContrib = regla[datos.contribuyente];
+            const hUser = regla[datos.estaciones];
+            const hFact = regla[datos.facturacion];
+            const invBase = regla.inversion;
+
+            const esEvaluar = (hContrib === "EVALUAR" || hUser === "EVALUAR" || invBase === "EVALUAR");
+            let mensajeWhatsapp = "";
+            let resultado = {};
+
+            if (esEvaluar) {
+                document.getElementById('numericQuoteSection').classList.add('hidden');
+                document.getElementById('evalQuoteSection').classList.remove('hidden');
+
+                resultado = {
+                    esEvaluar: true,
+                    inversionBase: "EVALUAR",
+                    totalHoras: "EVALUAR",
+                    granTotal: "EVALUAR"
+                };
+
+                mensajeWhatsapp = `*Solicitud de Cotización - PC MAYOR DEPOT*\n\n` +
+                    `👋 *Datos del Cliente:*\n` +
+                    `👤 *Contacto:* ${datos.contacto}\n` +
+                    `🏢 *Empresa:* ${datos.empresa}\n` +
+                    `📞 *Teléfono:* ${datos.telefono}\n` +
+                    `✉️ *Email:* ${datos.email}\n` +
+                    `📍 *Ubicación:* ${datos.ubicacion}\n\n` +
+                    `⚙️ *Parámetros Técnicos:*\n` +
+                    `💼 *Actividad:* ${datos.actividad}\n` +
+                    `⚖️ *Contribuyente:* ${datos.contribuyente}\n` +
+                    `👥 *Estaciones:* ${datos.estaciones}\n` +
+                    `🧾 *Facturación:* ${datos.facturacion}\n` +
+                    `🖨️ *Detalles:* ${datos.detalles}\n\n` +
+                    `⚠️ *Nota:* Por la envergadura del proyecto, el sistema determinó que requiere *Evaluación Técnica Personalizada*. Deseo coordinar con un especialista.`;
+            } else {
+                document.getElementById('numericQuoteSection').classList.remove('hidden');
+                document.getElementById('evalQuoteSection').classList.add('hidden');
+
+                const totalHoras = Number(hContrib) + Number(hUser) + Number(hFact);
+                const costoAdiestramiento = totalHoras * VALOR_HORA;
+                const granTotal = invBase + costoAdiestramiento;
+
+                resultado = {
+                    esEvaluar: false,
+                    inversionBase: invBase,
+                    totalHoras: totalHoras,
+                    granTotal: granTotal
+                };
+
+                // Actualizar interfaz
+                document.getElementById('resInversion').innerText = `${invBase} ${MONEDA}`;
+                document.getElementById('resHorasContrib').innerText = `${hContrib} hrs`;
+                document.getElementById('resHorasUser').innerText = `${hUser} hrs`;
+                document.getElementById('resHorasFact').innerText = `${hFact} hrs`;
+                document.getElementById('resTotalHoras').innerText = totalHoras;
+                document.getElementById('resValorHora').innerText = VALOR_HORA;
+                document.getElementById('resCostoHoras').innerText = `${costoAdiestramiento} ${MONEDA}`;
+                document.getElementById('resTotalFinal').innerText = `${granTotal} ${MONEDA}`;
+
+                mensajeWhatsapp = `*Solicitud de Presupuesto - PC MAYOR DEPOT*\n\n` +
+                    `👋 *Datos del Cliente:*\n` +
+                    `👤 *Contacto:* ${datos.contacto}\n` +
+                    `🏢 *Empresa:* ${datos.empresa}\n` +
+                    `📞 *Teléfono:* ${datos.telefono}\n` +
+                    `✉️ *Email:* ${datos.email}\n` +
+                    `📍 *Ubicación:* ${datos.ubicacion}\n\n` +
+                    `⚙️ *Parámetros Técnicos:*\n` +
+                    `💼 *Actividad:* ${datos.actividad}\n` +
+                    `⚖️ *Contribuyente:* ${datos.contribuyente} (${hContrib} hrs)\n` +
+                    `👥 *Estaciones:* ${datos.estaciones} (${hUser} hrs)\n` +
+                    `🧾 *Facturación:* ${datos.facturacion} (${hFact} hrs)\n` +
+                    `🖨️ *Detalles:* ${datos.detalles}\n\n` +
+                    `📊 *Presupuesto Estimado:*\n` +
+                    `🔧 *Instalación y Configuración Base:* ${invBase} ${MONEDA}\n` +
+                    `🎓 *Adiestramiento (${totalHoras} hrs x ${VALOR_HORA} ${MONEDA}):* ${costoAdiestramiento} ${MONEDA}\n` +
+                    `💰 *TOTAL ESTIMADO:* ${granTotal} ${MONEDA}\n\n` +
+                    `Deseo confirmar los requerimientos y coordinar la evaluación definitiva.`;
+            }
+
+            const urlWa = `https://wa.me/${TELEFONO_WHATSAPP}?text=` + encodeURIComponent(mensajeWhatsapp);
+            document.getElementById('btnWhatsappSend').href = urlWa;
+
+            return resultado;
+        }
+
+        // ENVÍO EN SEGUNDO PLANO A GOOGLE SHEETS
+        function enviarAGoogleSheets(datos, calculo) {
+            const payload = {
+                ...datos,
+                inversionBase: calculo.inversionBase,
+                totalHoras: calculo.totalHoras,
+                totalEstimado: calculo.granTotal,
+                fechaEnvio: new Date().toLocaleString()
+            };
+
             fetch(URL_GOOGLE_SCRIPT, {
                 method: 'POST',
                 mode: 'no-cors',
                 cache: 'no-cache',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            }).catch(error => {
-                console.log("Despachado con éxito a la hoja.");
+            }).catch(err => {
+                console.log("Despacho silencioso completado.");
             });
-        });
+        }
+
+        // VOLVER AL FORMULARIO PARA RECALCULAR
+        function volverAlFormulario() {
+            document.getElementById('stepResult').classList.add('hidden');
+            document.getElementById('loadingTitle').innerText = "Revisando requerimientos técnicos...";
+            document.getElementById('loadingSubtitle').innerText = "Analizando estructura operativa de la empresa.";
+            document.getElementById('stepForm').classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
