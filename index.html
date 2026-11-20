@@ -134,7 +134,7 @@
                 <select id="facturacion" required>
                     <option value="">Seleccione...</option>
                     <option value="FISCAL">Impresora Fiscal</option>
-                    <option value="DIGITAL">Facturación Digital / Imprenta Digital</option>
+                    <option value="DIGITAL">Facturación Digital</option>
                     <option value="FORMA LIBRE">Forma Libre</option>
                     <option value="MANUAL">Facturación Manual / Aún no tengo</option>
                 </select>
@@ -181,24 +181,20 @@
         <div id="numericQuoteSection">
             <div class="quote-box">
                 <div class="quote-row">
-                    <span>Instalación y Configuración Base:</span>
-                    <strong id="resInversion">0 €</strong>
+                    <span>Instalación y Configuración Base (<span id="resHorasContrib">0</span> hrs):</span>
+                    <strong id="resCostoContrib">0 €</strong>
                 </div>
                 <div class="quote-row">
-                    <span>Horas Técnicas (Contribuyente):</span>
-                    <strong id="resHorasContrib">0 hrs</strong>
+                    <span>Adiestramiento de Personal (<span id="resHorasUser">0</span> hrs):</span>
+                    <strong id="resCostoUser">0 €</strong>
                 </div>
                 <div class="quote-row">
-                    <span>Horas Técnicas (Estaciones):</span>
-                    <strong id="resHorasUser">0 hrs</strong>
+                    <span>Configuración Método Facturación (<span id="resHorasFact">0</span> hrs):</span>
+                    <strong id="resCostoFact">0 €</strong>
                 </div>
-                <div class="quote-row">
-                    <span>Horas Técnicas (Facturación):</span>
-                    <strong id="resHorasFact">0 hrs</strong>
-                </div>
-                <div class="quote-row" style="background-color: #eef2f5; padding: 6px; border-radius: 4px;">
-                    <span>Adiestramiento (<span id="resTotalHoras">0</span> hrs x <span id="resValorHora">35</span> €):</span>
-                    <strong id="resCostoHoras">0 €</strong>
+                <div class="quote-row" style="background-color: #eef2f5; padding: 8px; border-radius: 4px; font-weight: 600;">
+                    <span>Total Horas de Servicio (<span id="resValorHora">35</span> €/hr):</span>
+                    <strong id="resTotalHoras">0 hrs</strong>
                 </div>
                 <div class="quote-total">
                     <span>INVERSIÓN TOTAL ESTIMADA:</span>
@@ -218,7 +214,7 @@
 
         <!-- Botón de Envío por WhatsApp -->
         <a id="btnWhatsappSend" href="#" target="_blank" class="btn-whatsapp">
-            💬 Confirmar y Enviar Cotización por WhatsApp
+            💬 Confirmar y Enviar Cotización
         </a>
 
         <!-- Botón para Modificar o Recalcular -->
@@ -236,22 +232,22 @@
 
         // MATRIZ DE PRECIOS Y HORAS TÉCNICAS SEGÚN EXCEL PC MAYOR DEPOT
         const matrizPrecios = {
-            "Ferretería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Supermercado": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Panadería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Venta de repuestos para vehículos": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Restaurante": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 6, "4 A 6": 9, "7 A 10": 13, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 420 },
-            "Distribuidora Almacén con sucursales": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
-            "Farmacia (No maneja lotes)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Farmacia / Droguería (Manejo de lotes)": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
-            "Tecnología (Manejo de seriales)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Taller Mecánico (Ordenes de Servicio)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Tienda de ropa y calzado (Tallas y colores)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Colegios": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 350 },
-            "Gimnasios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Servicios en General": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Condominios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: 280 },
-            "Otros": { ORDINARIO: "EVALUAR", ESPECIAL: "EVALUAR", "1 A 3": "EVALUAR", "4 A 6": "EVALUAR", "7 A 10": "EVALUAR", "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2, inversion: "EVALUAR" }
+            "Ferretería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Supermercado": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Panadería": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Venta de repuestos para vehículos": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Restaurante": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 6, "4 A 6": 9, "7 A 10": 13, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Distribuidora Almacén con sucursales": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Farmacia (No maneja lotes)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Farmacia / Droguería (Manejo de lotes)": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Tecnología (Manejo de seriales)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Taller Mecánico (Ordenes de Servicio)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Tienda de ropa y calzado (Tallas y colores)": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Colegios": { ORDINARIO: 6, ESPECIAL: 8, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Gimnasios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Servicios en General": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Condominios": { ORDINARIO: 4, ESPECIAL: 6, "1 A 3": 4, "4 A 6": 7, "7 A 10": 10, "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 },
+            "Otros": { ORDINARIO: "EVALUAR", ESPECIAL: "EVALUAR", "1 A 3": "EVALUAR", "4 A 6": "EVALUAR", "7 A 10": "EVALUAR", "MAS 10": "EVALUAR", FISCAL: 0, DIGITAL: 2, MANUAL: 0, "FORMA LIBRE": 2 }
         };
 
         // GESTIÓN DEL ENVÍO DEL FORMULARIO
@@ -306,9 +302,8 @@
             const hContrib = regla[datos.contribuyente];
             const hUser = regla[datos.estaciones];
             const hFact = regla[datos.facturacion];
-            const invBase = regla.inversion;
 
-            const esEvaluar = (hContrib === "EVALUAR" || hUser === "EVALUAR" || invBase === "EVALUAR");
+            const esEvaluar = (hContrib === "EVALUAR" || hUser === "EVALUAR" || hFact === "EVALUAR");
             let mensajeWhatsapp = "";
             let resultado = {};
 
@@ -318,7 +313,12 @@
 
                 resultado = {
                     esEvaluar: true,
-                    inversionBase: "EVALUAR",
+                    horasContrib: "EVALUAR",
+                    costoContrib: "EVALUAR",
+                    horasUser: "EVALUAR",
+                    costoUser: "EVALUAR",
+                    horasFact: "EVALUAR",
+                    costoFact: "EVALUAR",
                     totalHoras: "EVALUAR",
                     granTotal: "EVALUAR"
                 };
@@ -336,30 +336,46 @@
                     `👥 *Estaciones:* ${datos.estaciones}\n` +
                     `🧾 *Facturación:* ${datos.facturacion}\n` +
                     `🖨️ *Detalles:* ${datos.detalles}\n\n` +
-                    `⚠️ *Nota:* Por la envergadura del proyecto, el sistema determinó que requiere *Evaluación Técnica Personalizada*. Deseo coordinar con un especialista.`;
+                    `⚠️ *Nota:* Por la magnitud o características específicas del proyecto, el sistema determinó que requiere *Evaluación Técnica Personalizada*. Deseo coordinar con un especialista de ingeniería.`;
             } else {
                 document.getElementById('numericQuoteSection').classList.remove('hidden');
                 document.getElementById('evalQuoteSection').classList.add('hidden');
 
-                const totalHoras = Number(hContrib) + Number(hUser) + Number(hFact);
-                const costoAdiestramiento = totalHoras * VALOR_HORA;
-                const granTotal = invBase + costoAdiestramiento;
+                const numHContrib = Number(hContrib);
+                const numHUser = Number(hUser);
+                const numHFact = Number(hFact);
+
+                const costoContrib = numHContrib * VALOR_HORA;
+                const costoUser = numHUser * VALOR_HORA;
+                const costoFact = numHFact * VALOR_HORA;
+
+                const totalHoras = numHContrib + numHUser + numHFact;
+                const granTotal = totalHoras * VALOR_HORA;
 
                 resultado = {
                     esEvaluar: false,
-                    inversionBase: invBase,
+                    horasContrib: numHContrib,
+                    costoContrib: costoContrib,
+                    horasUser: numHUser,
+                    costoUser: costoUser,
+                    horasFact: numHFact,
+                    costoFact: costoFact,
                     totalHoras: totalHoras,
                     granTotal: granTotal
                 };
 
                 // Actualizar interfaz
-                document.getElementById('resInversion').innerText = `${invBase} ${MONEDA}`;
-                document.getElementById('resHorasContrib').innerText = `${hContrib} hrs`;
-                document.getElementById('resHorasUser').innerText = `${hUser} hrs`;
-                document.getElementById('resHorasFact').innerText = `${hFact} hrs`;
-                document.getElementById('resTotalHoras').innerText = totalHoras;
+                document.getElementById('resHorasContrib').innerText = numHContrib;
+                document.getElementById('resCostoContrib').innerText = `${costoContrib} ${MONEDA}`;
+
+                document.getElementById('resHorasUser').innerText = numHUser;
+                document.getElementById('resCostoUser').innerText = `${costoUser} ${MONEDA}`;
+
+                document.getElementById('resHorasFact').innerText = numHFact;
+                document.getElementById('resCostoFact').innerText = `${costoFact} ${MONEDA}`;
+
+                document.getElementById('resTotalHoras').innerText = `${totalHoras} hrs`;
                 document.getElementById('resValorHora').innerText = VALOR_HORA;
-                document.getElementById('resCostoHoras').innerText = `${costoAdiestramiento} ${MONEDA}`;
                 document.getElementById('resTotalFinal').innerText = `${granTotal} ${MONEDA}`;
 
                 mensajeWhatsapp = `*Solicitud de Presupuesto - PC MAYOR DEPOT*\n\n` +
@@ -371,13 +387,15 @@
                     `📍 *Ubicación:* ${datos.ubicacion}\n\n` +
                     `⚙️ *Parámetros Técnicos:*\n` +
                     `💼 *Actividad:* ${datos.actividad}\n` +
-                    `⚖️ *Contribuyente:* ${datos.contribuyente} (${hContrib} hrs)\n` +
-                    `👥 *Estaciones:* ${datos.estaciones} (${hUser} hrs)\n` +
-                    `🧾 *Facturación:* ${datos.facturacion} (${hFact} hrs)\n` +
+                    `⚖️ *Contribuyente:* ${datos.contribuyente}\n` +
+                    `👥 *Estaciones:* ${datos.estaciones}\n` +
+                    `🧾 *Facturación:* ${datos.facturacion}\n` +
                     `🖨️ *Detalles:* ${datos.detalles}\n\n` +
-                    `📊 *Presupuesto Estimado:*\n` +
-                    `🔧 *Instalación y Configuración Base:* ${invBase} ${MONEDA}\n` +
-                    `🎓 *Adiestramiento (${totalHoras} hrs x ${VALOR_HORA} ${MONEDA}):* ${costoAdiestramiento} ${MONEDA}\n` +
+                    `📊 *Desglose del Presupuesto Estimado:*\n` +
+                    `🔧 *Instalación y Configuración Base:* ${numHContrib} hrs (${costoContrib} ${MONEDA})\n` +
+                    `🎓 *Adiestramiento de Personal:* ${numHUser} hrs (${costoUser} ${MONEDA})\n` +
+                    `🧾 *Configuración de Facturación:* ${numHFact} hrs (${costoFact} ${MONEDA})\n` +
+                    `⏱️ *Total Horas Técnicas:* ${totalHoras} hrs x ${VALOR_HORA} ${MONEDA}/hr\n` +
                     `💰 *TOTAL ESTIMADO:* ${granTotal} ${MONEDA}\n\n` +
                     `Deseo confirmar los requerimientos y coordinar la evaluación definitiva.`;
             }
@@ -392,7 +410,12 @@
         function enviarAGoogleSheets(datos, calculo) {
             const payload = {
                 ...datos,
-                inversionBase: calculo.inversionBase,
+                horasInstalacion: calculo.horasContrib,
+                costoInstalacion: calculo.costoContrib,
+                horasAdiestramiento: calculo.horasUser,
+                costoAdiestramiento: calculo.costoUser,
+                horasFacturacion: calculo.horasFact,
+                costoFacturacion: calculo.costoFact,
                 totalHoras: calculo.totalHoras,
                 totalEstimado: calculo.granTotal,
                 fechaEnvio: new Date().toLocaleString()
@@ -419,4 +442,5 @@
     </script>
 </body>
 </html>
+
 
