@@ -42,9 +42,18 @@
         .preview-item:last-child { margin-bottom: 0; }
         
         /* Caja de Cotización */
-        .quote-box { background-color: #fbfcfd; border-left: 4px solid #cc0000; padding: 16px; border-radius: 6px; margin-top: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-        .quote-row { display: flex; justify-content: space-between; margin-bottom: 9px; font-size: 14px; color: #333; border-bottom: 1px dashed #e2e5e8; padding-bottom: 6px; }
-        .quote-total { display: flex; justify-content: space-between; margin-top: 14px; font-size: 18px; font-weight: bold; color: #cc0000; padding-top: 10px; border-top: 2px solid #ddd; }
+        .quote-box { background-color: #ffffff; border: 1px solid #e9ecef; border-left: 5px solid #cc0000; padding: 16px; border-radius: 8px; margin-top: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .quote-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f2f5; }
+        .quote-row:last-of-type { border-bottom: none; }
+        .quote-row.highlight { background-color: #f8fafc; margin: 8px -6px; padding: 10px 10px; border-radius: 6px; border: 1px solid #e2e8f0; }
+        .row-info { display: flex; flex-direction: column; flex: 1; padding-right: 12px; }
+        .row-title { font-size: 14px; font-weight: 600; color: #2d3748; line-height: 1.3; }
+        .row-sub { font-size: 12px; color: #718096; margin-top: 2px; }
+        .row-amount { text-align: right; white-space: nowrap; flex-shrink: 0; min-width: 90px; }
+        .row-amount strong { font-size: 16px; color: #1a202c; font-weight: 700; }
+        .quote-total { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 2px solid #e2e8f0; }
+        .total-label { font-size: 15px; font-weight: 800; color: #cc0000; line-height: 1.2; flex: 1; padding-right: 10px; }
+        .total-amount { white-space: nowrap; flex-shrink: 0; text-align: right; font-size: 22px; font-weight: 800; color: #cc0000; }
         .disclaimer { font-size: 12px; color: #666; text-align: center; margin-top: 12px; font-style: italic; }
         
         .eval-alert { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 6px; color: #856404; font-size: 14px; line-height: 1.5; margin-top: 12px; }
@@ -181,24 +190,48 @@
         <div id="numericQuoteSection">
             <div class="quote-box">
                 <div class="quote-row">
-                    <span>Instalación y Configuración Base (<span id="resHorasContrib">0</span> hrs):</span>
-                    <strong id="resCostoContrib">0 €</strong>
+                    <div class="row-info">
+                        <span class="row-title">Instalación y Configuración Base</span>
+                        <span class="row-sub"><span id="resHorasContrib">0</span> hrs técnicas</span>
+                    </div>
+                    <div class="row-amount">
+                        <strong id="resCostoContrib">0 €</strong>
+                    </div>
                 </div>
                 <div class="quote-row">
-                    <span>Adiestramiento de Personal (<span id="resHorasUser">0</span> hrs):</span>
-                    <strong id="resCostoUser">0 €</strong>
+                    <div class="row-info">
+                        <span class="row-title">Adiestramiento de Personal</span>
+                        <span class="row-sub"><span id="resHorasUser">0</span> hrs técnicas</span>
+                    </div>
+                    <div class="row-amount">
+                        <strong id="resCostoUser">0 €</strong>
+                    </div>
                 </div>
                 <div class="quote-row">
-                    <span>Configuración Método Facturación (<span id="resHorasFact">0</span> hrs):</span>
-                    <strong id="resCostoFact">0 €</strong>
+                    <div class="row-info">
+                        <span class="row-title">Configuración Método Facturación</span>
+                        <span class="row-sub"><span id="resHorasFact">0</span> hrs técnicas</span>
+                    </div>
+                    <div class="row-amount">
+                        <strong id="resCostoFact">0 €</strong>
+                    </div>
                 </div>
-                <div class="quote-row" style="background-color: #eef2f5; padding: 8px; border-radius: 4px; font-weight: 600;">
-                    <span>Total Horas de Servicio (<span id="resValorHora">35</span> €/hr):</span>
-                    <strong id="resTotalHoras">0 hrs</strong>
+                <div class="quote-row highlight">
+                    <div class="row-info">
+                        <span class="row-title">Total Horas de Servicio</span>
+                        <span class="row-sub">Tarifa: <span id="resValorHora">35</span> € / hr</span>
+                    </div>
+                    <div class="row-amount">
+                        <strong id="resTotalHoras">0 hrs</strong>
+                    </div>
                 </div>
                 <div class="quote-total">
-                    <span>INVERSIÓN TOTAL ESTIMADA:</span>
-                    <span id="resTotalFinal">0 €</span>
+                    <div class="total-label">
+                        <span>INVERSIÓN TOTAL ESTIMADA:</span>
+                    </div>
+                    <div class="total-amount">
+                        <span id="resTotalFinal">0 €</span>
+                    </div>
                 </div>
             </div>
             <p class="disclaimer">* Presupuesto referencial sujeto a evaluación técnica definitiva.</p>
@@ -397,7 +430,7 @@
                     `🧾 *Configuración de Facturación:* ${numHFact} hrs (${costoFact} ${MONEDA})\n` +
                     `⏱️ *Total Horas Técnicas:* ${totalHoras} hrs x ${VALOR_HORA} ${MONEDA}/hr\n` +
                     `💰 *TOTAL ESTIMADO:* ${granTotal} ${MONEDA}\n\n` +
-                    `Deseo confirmar los requerimientos y coordinar la evaluación definitiva.`;
+                    `Confirmar los requerimientos y coordinar la evaluación técnica definitiva.`;
             }
 
             const urlWa = `https://wa.me/${TELEFONO_WHATSAPP}?text=` + encodeURIComponent(mensajeWhatsapp);
@@ -442,5 +475,4 @@
     </script>
 </body>
 </html>
-
 
